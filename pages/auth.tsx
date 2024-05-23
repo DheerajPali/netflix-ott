@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import "../app/globals.css";
 import Input from "@/components/Input";
 const Auth = () => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+
+    const [variant, setVariant] = useState('Login');
+
+    const toggleVariant = useCallback(() => {
+        setVariant((currentVariant) => currentVariant === 'Login' ? 'Register' : 'Login')
+    }, [variant])
+
     return (
         <>
             <div className="relative h-full w-full bg-[url('/images/hero.jpg')] 
@@ -17,15 +24,17 @@ const Auth = () => {
                         <div className="bg-black bg-opacity-70
                         px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
                             <h2 className="text-white text-4xl mb-8 font-semibold">
-                                Sign in
+                                {variant === 'Login' ? 'Login' : 'Register'}
                             </h2>
                             <div className="flex flex-col gap-4">
-                                <Input
-                                    label="Username"
-                                    id="name"
-                                    value={name}
-                                    onChange={(e: any) => setName(e.target.value)}
-                                />
+                                {variant === 'Register' &&
+                                    (<Input
+                                        label="Username"
+                                        id="name"
+                                        value={name}
+                                        onChange={(e: any) => setName(e.target.value)}
+                                    />)}
+
                                 <Input
                                     label="Email"
                                     id="email"
@@ -33,12 +42,41 @@ const Auth = () => {
                                     value={email}
                                     onChange={(e: any) => setEmail(e.target.value)}
                                 />
-                                 <Input
+                                <Input
                                     label="Password"
                                     id="password"
                                     value={password}
                                     onChange={(e: any) => setPassword(e.target.value)}
                                 />
+                                <button className="
+                                bg-red-600
+                                py-3
+                                text-white
+                                rounded-md
+                                w-full
+                                mt-10
+                                hover:bg-red-900
+                                transition
+                                "
+                                    onChange={(e: any) => setVariant(e.target.value)}
+                                >
+                                    {variant === 'Login' ? 'Sign In' : 'Sign Up'}
+                                </button>
+                                {variant === 'Login' ?
+                                    <p className=" text-neutral-500 mt-12 ">
+                                        First time using Netflix
+                                        <span onClick={toggleVariant} className="text-white ml-1 hover:underline cursor-pointer ">
+                                            Create an account
+                                        </span>
+                                    </p>
+                                    :
+                                    <p className=" text-neutral-500 mt-12 ">
+                                        Already having an account?
+                                        <span onClick={toggleVariant} className="text-white ml-1 hover:underline cursor-pointer ">
+                                            Sign In
+                                        </span>
+                                    </p>}
+
                             </div>
                         </div>
                     </div>
