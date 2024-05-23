@@ -1,7 +1,13 @@
 import { useCallback, useState } from "react";
 import "../app/globals.css";
 import Input from "@/components/Input";
+import axios from "axios";
+import { signIn } from 'next-auth/react';
+import { useRouter } from "next/router";
+
 const Auth = () => {
+    const router = useRouter();
+
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -11,6 +17,37 @@ const Auth = () => {
     const toggleVariant = useCallback(() => {
         setVariant((currentVariant) => currentVariant === 'Login' ? 'Register' : 'Login')
     }, [variant])
+
+    const login = useCallback(async () => {
+        try {
+            await signIn('credentials', {
+                email,
+                password,
+                redirect: false,
+                callbackUrl: '/'
+            });
+            router.push('/')
+        } catch (error) {
+            console.log("auth.tsx :: login : Error :", error);
+        }
+    }, [email, password, router]);
+
+
+    const register = useCallback(async () => {
+        try {
+            await axios.post('/api/register', {
+                email,
+                name,
+                password
+            });
+            // login();
+            toggleVariant();
+        } catch (error) {
+            console.log("auth.tsx :: register : Error :", error);
+        }
+    }, [email, name, password, login]);
+
+
 
     return (
         <>
@@ -59,6 +96,7 @@ const Auth = () => {
                                 transition
                                 "
                                     onChange={(e: any) => setVariant(e.target.value)}
+                                    onClick={variant === 'Login' ? login : register}
                                 >
                                     {variant === 'Login' ? 'Sign In' : 'Sign Up'}
                                 </button>
