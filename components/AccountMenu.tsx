@@ -1,3 +1,4 @@
+import { signOut } from "next-auth/react";
 import React from "react";
 interface AccountMenuProps {
     visible?: boolean;
@@ -17,6 +18,10 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible, label }) => {
                         <p className="text-white text-sm group-hover/item:underline ">
                             {label}
                         </p>
+                    </div>
+                    <hr className="bg-gray-600 border-0 h-px my-4"/>
+                    <div onClick={()=>signOut()} className="px-3 text-center text-white text-sm hover:underline " >
+                        Sign out of Netflix
                     </div>
                 </div>
             </div>
