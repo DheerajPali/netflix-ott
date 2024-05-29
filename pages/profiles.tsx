@@ -1,6 +1,6 @@
 import { NextPageContext } from "next";
 import "../app/globals.css";
-import { getSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import { redirect } from "next/dist/server/api-utils";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import { useRouter } from "next/router";
@@ -61,6 +61,11 @@ const Profiles = () => {
                                 {user?.name}
                             </div>
                         </div>
+                        <button className='h-10 w-full bg-white hover:opacity-80'
+                            onClick={() => signOut()}
+                        >
+                            Logout
+                        </button>
                     </div>
                 </div>
             </div>
