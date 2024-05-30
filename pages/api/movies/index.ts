@@ -18,7 +18,7 @@ export default async function handler(
     return res.status(200).json(movies);
 
   } catch (error) {
-    console.log("api :: movies :: index.ts :: handleeer : Error", error);
+    console.log("api :: movies :: index.ts :: handler : Error", error);
     return res.status(400).end();
   }
 }

@@ -15,7 +15,7 @@ export default async function handler(
 
     return res.status(200).json(currentUser);
   } catch (error) {
-    console.log(error);
+    console.log("api :: current.ts : Error",error);
     return res.status(400).end();
   }
 }

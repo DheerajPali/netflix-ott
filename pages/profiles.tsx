@@ -61,11 +61,11 @@ const Profiles = () => {
                                 {user?.name}
                             </div>
                         </div>
-                        <button className='h-10 w-full bg-white hover:opacity-80'
+                        {/* <button className='h-10 w-full bg-white hover:opacity-80'
                             onClick={() => signOut()}
                         >
                             Logout
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </div>
