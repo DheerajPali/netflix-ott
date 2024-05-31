@@ -47,7 +47,8 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
 
     return (
         <div
-            onClick={toggleFavorites}
+        //Here I'm commenting it due to an error while adding favorite. 
+            // onClick={toggleFavorites}
             className=" 
             cursor-pointer
             group/item
